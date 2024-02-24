@@ -3,7 +3,7 @@ import threading
 
 def send_message():
     while True:
-        message = input("> ")
+        message = input("\n> ")
         if message.startswith("/chname "):
             new_username = message.split(" ")[1]
             client_socket.send(f"CHANGENAME {new_username}".encode('utf-8'))
@@ -28,5 +28,4 @@ while True:
     if not data:
         print("[*] Servidor desconectado.")
         break
-    print(data)
-
+    print('\n'+data, end=' ')

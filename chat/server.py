@@ -9,19 +9,19 @@ def handle_client(client_socket, client_address):
         try:
             data = client_socket.recv(1024).decode('utf-8')
             if not data:
-                print(f"[*] Cliente {clients[client_socket]} desconectado.")
+                print(f"[*] {clients[client_socket]} se ha desconectado.")
                 del clients[client_socket]  # Eliminar cliente del diccionario
                 break
             if data.startswith("CHANGENAME "):
                 new_username = data.split(" ")[1]
                 old_username = clients[client_socket]
                 clients[client_socket] = new_username
-                print(f"[*] Cliente {old_username} cambió su nombre a {new_username}.")
+                print(f"[*] {old_username} cambió su nombre a {new_username}.")
                 send_to_all_except(client_socket, f"[*] {old_username} cambió su nombre a {new_username}.")
             else:
                 sender_username = clients[client_socket]
-                print(f"{sender_username}: {data}")
-                send_to_all_except(client_socket, f"{sender_username}: {data}")
+                print(f"[{sender_username}] > {data}")
+                send_to_all_except(client_socket, f"[{sender_username}] > {data}".strip())
         except:
             print(f"[*] Error al recibir datos del cliente {clients[client_socket]}.")
             del clients[client_socket]  # Eliminar cliente del diccionario
@@ -37,7 +37,7 @@ def send_to_all_except(sender_socket, message):
 
 def main():
     host = "127.0.0.1"
-    port = 5555
+    port = 10555
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
@@ -49,7 +49,6 @@ def main():
         print(f"[*] Cliente {client_address} conectado.")
         
         # Solicitar y registrar el nombre de usuario
-        client_socket.send("Ingrese su nombre de usuario: ".encode('utf-8'))
         username = client_socket.recv(1024).decode('utf-8')
         clients[client_socket] = username
         
