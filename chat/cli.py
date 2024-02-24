@@ -78,4 +78,3 @@ send_message()
 
 # Cerrar el socket cuando terminemos
 client_socket.close()
-
