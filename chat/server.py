@@ -61,7 +61,7 @@ def send_to_all_except(sender_socket, message):
                 print(f"[*] Error al enviar mensaje.")
 
 def main():
-    host = "192.168.0.16"
+    host = input("Host > ")
     port = r.randint(5000, 10000)
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

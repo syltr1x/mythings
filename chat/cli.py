@@ -44,7 +44,7 @@ def send_message():
             message = cypher.cifrar_texto('RSA', message)
             client_socket.send(message)
 
-host = "192.168.0.16"
+host = input("Host > ")
 port = int(input("Port > "))
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
