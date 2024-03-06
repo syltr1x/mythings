@@ -21,7 +21,7 @@ def crear_clave(algoritmo, longitud):
     else:
         print("Algoritmo no válido.")
 
-def cifrar_texto(algoritmo, texto_a_cifrar):
+def cifrar(algoritmo, texto_a_cifrar):
     if algoritmo == 'RSA':
         try:
             with open("pub_key.pem", "rb") as f:
@@ -46,7 +46,7 @@ def cifrar_texto(algoritmo, texto_a_cifrar):
         print("Algoritmo no válido.")
         return None
 
-def descifrar_texto(algoritmo, texto_cifrado):
+def descifrar(algoritmo, texto_cifrado):
     if algoritmo == 'RSA':
         try:
             with open("priv_key.pem", "rb") as f:

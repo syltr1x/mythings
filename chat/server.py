@@ -4,18 +4,17 @@ import random as r
 import cypher
 from colorama import Fore as c, init
 init()
-# Diccionario para mapear nombres de usuario con sus sockets
 clients = {}
-password, epwd = "1234", False
+password, epwd = "1234", True
 
 def handle_client(client_socket, client_address):
     while True:
         try:
             data = client_socket.recv(1024)
-            data = cypher.descifrar_texto('RSA', data)
+            data = cypher.descifrar('RSA', data)
             if not data:
                 print(f"{c.RED}[*] {clients[client_socket]} se ha desconectado.{c.WHITE}")
-                del clients[client_socket]  # Eliminar cliente del diccionario
+                del clients[client_socket]
                 break
             if data.startswith("/chname"):
                 new_username = data.split(" ")[1]
@@ -31,11 +30,11 @@ def handle_client(client_socket, client_address):
                 send_to_all(f"[{sender_username}] > {data}".strip())
         except:
             print(f"[*] Error al recibir datos del cliente {clients[client_socket]}.")
-            del clients[client_socket]  # Eliminar cliente del diccionario
+            del clients[client_socket]
             break
 
 def send_only_one(sended_socket, message):
-    message = cypher.cifrar_texto('RSA', message)
+    message = cypher.cifrar('RSA', message)
     for client_socket in clients:
         if client_socket == sended_socket:
             try:
@@ -44,7 +43,7 @@ def send_only_one(sended_socket, message):
                 print(f"[*] Error al enviar mensaje.")
             
 def send_to_all(message):
-    message = cypher.cifrar_texto('RSA', message)
+    message = cypher.cifrar('RSA', message)
     for client_socket in clients:
         try:
             client_socket.send(message)
@@ -52,7 +51,7 @@ def send_to_all(message):
             print(f"[*] Error al enviar mensaje.")
 
 def send_to_all_except(sender_socket, message):
-    message = cypher.cifrar_texto('RSA', message)
+    message = cypher.cifrar('RSA', message)
     for client_socket in clients:
         if client_socket != sender_socket:
             try:
@@ -63,7 +62,6 @@ def send_to_all_except(sender_socket, message):
 def main():
     host = input("Host > ")
     port = r.randint(5000, 10000)
-
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(5)
@@ -72,29 +70,26 @@ def main():
     while True:
         client_socket, client_address = server_socket.accept()
         print(f"[*] Cliente {client_address} conectado.")
-        received_request = client_socket.recv(1024).decode('utf-8')
+        received_request = client_socket.recv(1024)
+        received_request = cypher.descifrar('RSA', received_request)
         if received_request == "#ispassword":
             if epwd == True:
-                client_socket.send('#existpwd'.encode('utf-8'))
-                received_password = client_socket.recv(1024).decode('utf-8')
+                client_socket.send(cypher.cifrar('RSA', '#existpwd'))
+                received_password = client_socket.recv(1024)
+                received_password = cypher.descifrar('RSA', received_password)
                 if received_password == password:
-                    client_socket.send("#granted".encode('utf-8'))
+                    client_socket.send(cypher.cifrar('RSA', "#granted"))
                 else:
-                    client_socket.send("#blocked".encode('utf-8'))
+                    client_socket.send(cypher.cifrar('RSA', "#blocked"))
             else: 
-                client_socket.send("#nexistpwd".encode('utf-8'))
+                client_socket.send(cypher.cifrar('RSA', "#nexistpwd"))
         
-        # Solicitar y registrar el nombre de usuario
-        username = client_socket.recv(1024).decode('utf-8')
+        username = client_socket.recv(1024)
+        username = cypher.descifrar('RSA', username)
         clients[client_socket] = username
-        
-        # Enviar mensaje de bienvenida a todos los clientes
         send_to_all_except(client_socket, f"{c.GREEN}[*] {username} se ha conectado.{c.WHITE}")
-
-        # Iniciar un hilo para manejar la comunicación con el cliente
         client_handler = threading.Thread(target=handle_client, args=(client_socket, client_address))
         client_handler.start()
 
 if __name__ == "__main__":
     main()
-
