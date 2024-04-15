@@ -76,7 +76,7 @@ def descifrar(algoritmo, tipo, data):
     elif algoritmo == 'AES':
         if tipo == "file":
             with open(data, 'rb') as file:
-                iv = file.read(16)  # Leer el IV (vector de inicialización)
+                iv = file.read(16) 
                 ciphertext = file.read()
             cipher = AES.new(key, AES.MODE_CBC, iv)
             plaintext = cipher.decrypt(ciphertext)
@@ -91,9 +91,3 @@ def descifrar(algoritmo, tipo, data):
     else:
         print("Algoritmo no válido.")
         return None
-
-#create_key('AES', 256)
-descifrar('AES', 'file', 'test.txt.bin')
-#descifrar_archivo_aes('test.txt.bin', get_key('---', 'AES'))
-#descifrado = descifrar_texto('RSA', cifrado)
-#print("Texto descifrado:", descifrado)
