@@ -11,7 +11,7 @@ alias mkh="mkdir logs victim"
 
 gsc() {git clone https://github.com/syltr1x/$1}
 gcr() {git clone https://github.com/$1/$2}
-gmc() {git commit -m $1}
+gcmg() {git commit -m $1}
 gps() {git push origin $1}
 
 scan() {nmap -sC -sV -p- --min-rate 1000 $1 -o logs/scan.txt}
