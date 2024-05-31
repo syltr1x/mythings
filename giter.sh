@@ -11,7 +11,7 @@ turquoise="\e[0;36m\033[1m"
 gray="\e[0;37m\033[1m"
 
 # Variables
-dirList=()
+dirList=(".")
 params=()
 
 # Parameters
