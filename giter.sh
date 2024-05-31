@@ -1,14 +1,25 @@
-#!/bin/sh
+#!/bin/bash
+
+# Colours
+green="\e[0;32m\033[1m"
+end="\033[0m\e[0m"
+red="\e[0;31m\033[1m"
+blue="\e[0;34m\033[1m"
+yellow="\e[0;33m\033[1m"
+purple="\e[0;35m\033[1m"
+turquoise="\e[0;36m\033[1m"
+gray="\e[0;37m\033[1m"
 
 # Variables
 dirList=()
 params=()
 
 # Parameters
-for i in "$@"; do
-	if [ $i == '-h' ]; then
-		params+=(" -a")
-	fi
+while getopts ":h:r:" arg; do
+	case $arg in
+		h) params+=(" -a");;
+		r) params+=(" -R");;
+	esac
 done
 
 # Directory List
@@ -31,11 +42,10 @@ done
 
 # Obtain Git Data
 for repo in ${dirList[@]}; do
-	gitData=$(git -C $repo status -s)
-	gitCount=$(wc -l <<< $gitData)
-	if [ $gitCount -gt 1 ]; then
-		echo "==========$repo=========="
-		echo "$gitData"
+	gitCount=$(git -C $repo status -s | wc -l)
+	if [ $gitCount -gt 0 ]; then
+		echo -e "${yellow}[*] Directory: ${end}${gray}./$repo${end}"
+		git -C $repo status -s
 		echo ""
 	fi
 done
