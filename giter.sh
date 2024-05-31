@@ -12,10 +12,11 @@ gray="\e[0;37m\033[1m"
 
 # Variables
 dirList=(".")
+validDirs=()
 params=()
 
 # Parameters
-while getopts ":h:r:" arg; do
+while getopts ":h :r" arg; do
 	case $arg in
 		h) params+=(" -a");;
 		r) params+=(" -R");;
@@ -35,16 +36,20 @@ done < <(ls -l ${params[@]})
 
 # Directory Scan
 for dir in ${dirList[@]}; do
-	if [ ! -d "$dir/.git" ]; then
-		dirList=("${dirList[@]/$dir}")
+	if [ -d "$dir/.git" ]; then
+		validDirs+=("$dir")
 	fi
 done
 
 # Obtain Git Data
-for repo in ${dirList[@]}; do
+for repo in ${validDirs[@]}; do
 	gitCount=$(git -C $repo status -s | wc -l)
 	if [ $gitCount -gt 0 ]; then
-		echo -e "${yellow}[*] Directory: ${end}${gray}./$repo${end}"
+		if [ "$repo" == "." ]; then
+			echo -e "${yellow}[*] Directory: ${end}${gray}./${repo/./$(basename "$PWD")}${end}"
+		else
+			echo -e "${yellow}[*] Directory: ${end}${gray}$repo${end}"
+		fi
 		git -C $repo status -s
 		echo ""
 	fi
