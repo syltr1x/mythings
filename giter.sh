@@ -46,7 +46,7 @@ for repo in ${validDirs[@]}; do
 	gitCount=$(git -C $repo status -s | wc -l)
 	if [ $gitCount -gt 0 ]; then
 		if [ "$repo" == "." ]; then
-			echo -e "${turquoise}[*] Directory: ${end}${gray}./${repo/./$(basename "$PWD")}${end}"
+			echo -e "${purple}[*] Directory: ${end}${gray}./${repo/./$(basename "$PWD")}${end} (current dir)"
 		else
 			echo -e "${turquoise}[*] Directory: ${end}${gray}$repo${end}"
 		fi
