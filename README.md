@@ -5,7 +5,6 @@
 - [pydino/](https://github.com/syltr1x/mythings/tree/main/pydino): connection between python GUI program and arduino serial port
 - [ctk_mod/](https://github.com/syltr1x/mythings/tree/main/ctk_mod): theme modification for [customtkinter](https://github.com/tomSchimansky/customtkinter)
 - [chat/](https://github.com/syltr1x/mythings/tree/main/chat): client and server side chat script made in python 
-- [.config](https://github.com/syltr1x/mythings/tree/main/.config): all my dotfiles (used in arch linux)
 - [server.exe](https://github.com/syltr1x/mythings/blob/main/server.exe) / [server.c](https://github.com/syltr1x/mythings/blob/main/server.c): simple c script for share 1 file in LAN
 
 
