@@ -1,5 +1,9 @@
 ## Index
 - [giter.sh](https://github.com/syltr1x/mythings/blob/main/giter.sh): script for list repositories in a directory
+```
+sudo curl -s https://raw.githubusercontent/syltr1x/mythings/main/giter.sh -o /usr/bin/giter
+chmod +x /usr/bin/giter 
+```
 - [deauth.py](https://github.com/syltr1x/mythings/blob/main/deauth.py): send packages to device connected in network and knock down this
 - [cypher.py](https://github.com/syltr1x/mythings/blob/main/cypher.py): simple cypher script for file and text, support RSA and AES
 - [pydino/](https://github.com/syltr1x/mythings/tree/main/pydino): connection between python GUI program and arduino serial port
