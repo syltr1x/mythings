@@ -13,26 +13,24 @@ gray="\e[0;37m\033[1m"
 # Variables
 dirList=(".")
 validDirs=()
-params=()
+params=("-maxdepth 1")
 
 # Parameters
 while getopts ":h :r" arg; do
 	case $arg in
-		h) params+=(" -a");;
-		r) params+=(" -R");;
+		h) params+=("-maxdepth 1");;
+		r) params=("");;
 	esac
 done
 
 # Directory List
 while IFS= read -r linea; do
 	firstChar=${linea:0:1}
-	if [ "$firstChar" == "d" ]; then
-		linea=$(awk '{print $NF}' <<< "$linea")
-		if [ "$linea" != "." ] && [ "$linea" != ".." ]; then
-			dirList+=("$linea")
-		fi
+	linea=$(awk '{print $NF}' <<< "$linea")
+	if [ "$linea" != "." ] && [ "$linea" != ".." ]; then
+		dirList+=("$linea")
 	fi
-done < <(ls -l ${params[@]})
+done < <(find . ${params[@]} -type d)
 
 # Directory Scan
 for dir in ${dirList[@]}; do
