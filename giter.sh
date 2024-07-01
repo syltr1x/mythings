@@ -36,12 +36,20 @@ done < <(find . ${params[@]} -type d)
 for dir in ${dirList[@]}; do
 	if [ -d "$dir/.git" ]; then
 		validDirs+=("$dir")
+		# if [ ! -f "$dir/.history_changes" ]; then
+		# 	echo "[!] '.history_changes' not found in $dir. Consider execute giter -p(pull) or -f(fetch) to obtain last changes data."
+		# 	datetime=$(date | awk '{NF=""}1')
+		# 	echo -e "$datetime -> add: '.history_changes to .gitignore (not commited)" > $dir/.history_changes
+		# 	echo ".history_changes" >> $dir/.gitignore
+		# fi
 	fi
 done
 
 # Obtain Git Data
 for repo in ${validDirs[@]}; do
 	gitCount=$(git -C $repo status -s | wc -l)
+	# lastChanges=$(cat $repo/.history_changes | tail -1)
+	# echo -e "Last changes: $lastChanges"
 	if [ $gitCount -gt 0 ]; then
 		if [ "$repo" == "." ]; then
 			echo -e "${purple}[*] Directory: ${end}${gray}./${repo/./$(basename "$PWD")}${end} (current dir)"
@@ -49,8 +57,11 @@ for repo in ${validDirs[@]}; do
 			echo -e "${turquoise}[*] Directory: ${end}${gray}$repo${end}"
 		fi
 		git -C $repo status -s
-		echo ""
 	else
 		echo -e "${blue}[*] Directory: ${end}${gray}$repo${end} (no changes)"
 	fi
+	commitId=$(git -C $repo log --oneline | head -n1 | awk ' { print $1 } ')
+	commitDesc=$(git -C $repo log --oneline | head -n1 | cut -d\  -f2- )
+	echo -e "($commitId) '$commitDesc'"
+	echo ""
 done
