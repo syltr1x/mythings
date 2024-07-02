@@ -50,15 +50,17 @@ for repo in ${validDirs[@]}; do
 	gitCount=$(git -C $repo status -s | wc -l)
 	# lastChanges=$(cat $repo/.history_changes | tail -1)
 	# echo -e "Last changes: $lastChanges"
-	if [ $gitCount -gt 0 ]; then
-		if [ "$repo" == "." ]; then
-			echo -e "${purple}[*] Directory: ${end}${gray}./${repo/./$(basename "$PWD")}${end} (current dir)"
-		else
-			echo -e "${turquoise}[*] Directory: ${end}${gray}$repo${end}"
-		fi
-		git -C $repo status -s
+	if [ "$repo" == "." ]; then
+		echo -e "${purple}[*] Directory: ${end}${gray}${repo/./$(basename "$PWD")}${end} (current dir)"
 	else
-		echo -e "${blue}[*] Directory: ${end}${gray}$repo${end} (no changes)"
+		if [ $gitCount -gt 0 ]; then
+			echo -e "${turquoise}[*] Directory: ${end}${gray}$repo${end}"
+		else
+			echo -e "${blue}[*] Directory: ${end}${gray}$repo${end} (no changes)"
+		fi
+	fi
+	if [ $gitCount -gt 0 ]; then
+		git -C $repo status -s
 	fi
 	commitId=$(git -C $repo log --oneline | head -n1 | awk ' { print $1 } ')
 	commitDesc=$(git -C $repo log --oneline | head -n1 | cut -d\  -f2- )
