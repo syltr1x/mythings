@@ -1,6 +1,6 @@
 ## Index
 - [giter.sh](https://github.com/syltr1x/mythings/blob/main/giter.sh): script for list repositories in a directory
-```
+```bash
 sudo curl -s https://raw.githubusercontent/syltr1x/mythings/main/giter.sh -o /usr/bin/giter
 sudo chmod +x /usr/bin/giter 
 ```
@@ -10,9 +10,6 @@ sudo chmod +x /usr/bin/giter
 - [ctk_mod/](https://github.com/syltr1x/mythings/tree/main/ctk_mod): theme modification for [customtkinter](https://github.com/tomSchimansky/customtkinter)
 - [chat/](https://github.com/syltr1x/mythings/tree/main/chat): client and server side chat script made in python 
 - [server.exe](https://github.com/syltr1x/mythings/blob/main/server.exe) / [server.c](https://github.com/syltr1x/mythings/blob/main/server.c): simple c script for share 1 file in LAN
-
-
-
-#### Fixes
-* 17/4: .zshalias: cambio de "gmc" a "gcmg" (Git Commit MessaGe) debido a que "gmc" es reservado para "git merge --continue" 
-* 8/5. deauth.py: Cambio de parametro de la interfaz
+- [spo_spi.sh](https://github.com/syltr1x/mythings/blob/main/spo_spi.sh): Spotify and spicetify installer and config in linux (based on debian or arch)
+- [suidscanner.sh](https://github.com/syltr1x/mythings/blob/main/suidscanner.sh): GTFO SUID vuln scanner
+- [suid_gtfo_bins](https://github.com/syltr1x/mythings/blob/main/suid_gtfo_bins): SUID bins list (from GTFO)
