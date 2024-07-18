@@ -1,7 +1,7 @@
 ## Index
 - [giter.sh](https://github.com/syltr1x/mythings/blob/main/giter.sh): script for list repositories in a directory
 ```bash
-sudo curl -s https://raw.githubusercontent/syltr1x/mythings/main/giter.sh -o /usr/bin/giter
+sudo curl -s https://raw.githubusercontent.com/syltr1x/mythings/main/giter.sh -o /usr/bin/giter
 sudo chmod +x /usr/bin/giter 
 ```
 - [deauth.py](https://github.com/syltr1x/mythings/blob/main/deauth.py): send packages to device connected in network and knock down this
