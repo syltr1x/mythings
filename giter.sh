@@ -16,7 +16,23 @@ validDirs=()
 
 
 help_menu() {
-	echo "AYUDA\nMENU"
+	echo "-h: Display this help panel"
+	echo "-a: Inlcude hidden folders/repos"
+	echo "-r: Recursive folder search"
+	echo "-p: make pull in each repo"
+	echo "-f: make fetch in each repo"
+	echo "-u: update giter"
+}
+
+update_giter() {
+	echo "[*] Downloading file..."
+	curl -s https://raw.githubusercontent.com/syltr1x/mythings/main/giter.sh -o $(which giter)
+	if [ $? -eq 0 ]; then
+		echo -e "${green}[+] ${end}File downloaded"
+		sudo chmod +x $(which giter)
+	else
+		echo -e "${red}[-] ${end}Error in donwload"
+	fi
 }
 
 obtain_dirs() {
@@ -85,18 +101,21 @@ pull=false
 fetch=false
 
 # Parameters
-while getopts ":h :a :r :p :pr :f :fr" arg; do
+while getopts ":h :a :r :p :f :u" arg; do
 	case $arg in
 		h) display_help=true;;
 		a) hidden=true;; 
 		r) recursive=true;;
 		p) pull=true;;
 		f) fetch=true;;
+		u) update=true;;
 	esac
 done
-echo $display_help
-# if [ $display_help == true ]; then
-# 	help_menu
-# else
-# 	giter $hidden $recursive $pull $fetch
-# fi
+
+if [ $display_help == true ]; then
+	help_menu
+elif [ $update == true ]; then
+	update_giter
+else
+	giter $hidden $recursive $pull $fetch
+fi
