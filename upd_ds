@@ -1,9 +1,10 @@
 #!/bin/zsh
 
+user=$(id -un)
 version=$(cat /home/syltr1x/Desktop/Discord/.version)
-curl -s -X GET "https://stable.dl2.discordapp.net/apps/linux/0.0.${version}/discord-0.0.${version}.tar.gz" -o /home/syltr1x/Desktop/discord.tar.gz
-gzip /home/syltr1x/Desktop/discord.tar.gz -d
-tar -xf /home/syltr1x/Desktop/discord.tar -C /home/syltr1x/Desktop/Discord
-chmod +x /home/syltr1x/Desktop/Discord/Discord
-rm /home/syltr1x/Desktop/discord.tar
-echo $(($version+1)) > /home/syltr1x/Desktop/Discord/.version
+curl -s -X GET "https://stable.dl2.discordapp.net/apps/linux/0.0.${version}/discord-0.0.${version}.tar.gz" -o /home/$user/Desktop/discord.tar.gz
+gzip /home/$user/Desktop/discord.tar.gz -d
+tar -xf /home/$user/Desktop/discord.tar -C /home/syltr1x/Desktop/Discord
+chmod +x /home/$user/Desktop/Discord/Discord
+rm /home/$user/Desktop/discord.tar
+echo $(($version+1)) > /home/$user/Desktop/Discord/.version
