@@ -1,8 +1,13 @@
 ## Index
 - [giter.sh](https://github.com/syltr1x/mythings/blob/main/giter.sh): script for list repositories in a directory
 ```bash
-sudo curl -s https://raw.githubusercontent.com/syltr1x/mythings/main/giter.sh -o /usr/bin/giter
+sudo curl -s "https://raw.githubusercontent.com/syltr1x/mythings/main/giter.sh" -o /usr/bin/giter
 sudo chmod +x /usr/bin/giter 
+```
+- [upd_ds.sh](https://github.com/syltr1x/mythings/blob/main/upd_ds.sh): script for update discord automatish in linux
+```bash
+sudo curl -s "https://raw.githubusercontent.com/syltr1x/mythings/main/upd_ds.sh" -o /usr/bin/upd_ds
+sudo chmod +x /usr/bin/upd_ds
 ```
 - [deauth.py](https://github.com/syltr1x/mythings/blob/main/deauth.py): send packages to device connected in network and knock down this
 - [cypher.py](https://github.com/syltr1x/mythings/blob/main/cypher.py): simple cypher script for file and text, support RSA and AES
