@@ -8,3 +8,4 @@ tar -xf /home/$user/Desktop/discord.tar -C /home/syltr1x/Desktop/Discord
 chmod +x /home/$user/Desktop/Discord/Discord
 rm /home/$user/Desktop/discord.tar
 echo $(($version+1)) > /home/$user/Desktop/Discord/.version
+discord
