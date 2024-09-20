@@ -36,11 +36,7 @@ update_giter() {
 }
 
 obtain_dirs() {
-	if [ $# -eq 1 ]; then
-		files_list=$(find . $1 -type d)
-	else
-		files_list=$(find . -type d)
-	fi
+	params=${@:-""}
 	# Directory List
 	while IFS= read -r linea; do
 		firstChar=${linea:0:1}
@@ -48,7 +44,7 @@ obtain_dirs() {
 		if [ "$linea" != "." ] && [ "$linea" != ".." ]; then
 			dirList+=("$linea")
 		fi
-	done <<< "$files_list"
+	done < <(find . $params -type d)
 
 	# Directory Scan
 	for dir in ${dirList[@]}; do
@@ -59,14 +55,14 @@ obtain_dirs() {
 	echo ${validDirs[@]}
 }
 giter() {
-	validDirs=$(obtain_dirs $dirParams)
-	giter $hidden $recursive $pull $fetch
-	if [ ! $recursive ]; then
+	# $hidden $recursive $pull $fetch (Parameters order 1..4)
+	if [ $2 == "false" ]; then
 		dirParams="-maxdepth 1"
 	fi
-	if [ $pull ]; then
+	validDirs=$(obtain_dirs $dirParams)
+	if [ $3 != "false" ]; then
 		gitComm="pull"
-	elif [ $fetch ]; then	
+	elif [ $4 != "false" ]; then	
 		gitComm="fetch"
 	else
 		gitComm="status -s"
@@ -95,6 +91,7 @@ giter() {
 
 # Initial Variables
 display_help=false
+update=false
 hidden=false
 recursive=false
 pull=false
