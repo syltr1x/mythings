@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# ^ Change this if you don't use venv
 
 from datetime import datetime, timedelta
 import subprocess

@@ -9,6 +9,7 @@ sudo chmod +x /usr/bin/giter
 sudo curl -s "https://raw.githubusercontent.com/syltr1x/mythings/main/upd_ds.sh" -o /usr/bin/upd_ds
 sudo chmod +x /usr/bin/upd_ds
 ```
+- [auditor.py](https://github.com/syltr1x/mythings/blob/main/auditor.py): record meets, transcribe and resume with AI
 - [deauth.py](https://github.com/syltr1x/mythings/blob/main/deauth.py): send packages to device connected in network and knock down this
 - [cypher.py](https://github.com/syltr1x/mythings/blob/main/cypher.py): simple cypher script for file and text, support RSA and AES
 - [pydino/](https://github.com/syltr1x/mythings/tree/main/pydino): connection between python GUI program and arduino serial port
