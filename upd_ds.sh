@@ -4,8 +4,8 @@ user=$(id -un)
 version=$(cat /home/$user/Desktop/Discord/.version)
 curl -s -X GET "https://stable.dl2.discordapp.net/apps/linux/0.0.${version}/discord-0.0.${version}.tar.gz" -o /home/$user/Desktop/discord.tar.gz
 gzip /home/$user/Desktop/discord.tar.gz -d
-tar -xf /home/$user/Desktop/discord.tar -C /home/syltr1x/Desktop/Discord
+tar -xf /home/$user/Desktop/discord.tar -C /home/$user/Desktop/
 chmod +x /home/$user/Desktop/Discord/Discord
 rm /home/$user/Desktop/discord.tar
 echo $(($version+1)) > /home/$user/Desktop/Discord/.version
-discord
+/home/$user/Desktop/Discord/Discord
