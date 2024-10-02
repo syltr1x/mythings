@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Game Hub</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+    * {
+        background-color: #151515;
+        margin: 0;
+        padding: 0;
+        font-family: 'Montserrat', sans-serif;
+        list-style: none;
+        text-decoration: none;
+        color: #eee;
+    }
+
+    body {
+        justify-content: center;
+    }
+
+    form {
+        margin: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form > * {
+        border: none;
+        outline: none;
+        border-radius: 0.4rem;
+        padding: 0.4rem;
+        margin-right: 0.6rem;
+    }
+    form > input {
+        border-radius: 0.4rem 0.4rem 0rem 0rem;
+    }
+
+    form > input:focus {
+        border-bottom: #0c497e 2px solid;
+    }
+    .form-sel{
+        background-color: #222;
+    }
+    #form-btn {
+        background-color: #0c497e;
+    }
+    .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 1rem 1rem;
+        padding: 0.6rem;
+        font-size: 1.1rem;
+        border-radius: 0.4rem;
+        background-color: #351183;
+        transition: box-shadow .4s, filter .3s;
+    }
+
+    .item > img {
+        margin-right: 0.3rem;
+        height: 1.4rem;
+        border-radius: 50%;
+        transition: box-shadow .4s, filter .3s;
+    }
+
+    .item:hover {
+        filter:brightness(150%);
+        box-shadow: #ccc 0px 0px 5px 1.6px;
+    }
+    .item:hover > img {
+        filter: brightness(0.6);
+    }
+
+    #name {
+        background-color: #0000;
+        justify-content: left;
+        text-align: left;
+    }
+
+    #price {
+        background-color: #0000;
+        text-align: right;
+    }
+    .xbox {
+        background-color: #09a30a;
+    }
+    .steam {
+        background-color: #0c497e; 
+    }
+    .mstore {
+        background-color: #ccc;
+    }
+    .mstore > p {
+        color: #111;
+    }
+    .epic {
+        background-color: #121212;
+    }
+</style>
+</head>
+<body>
+    <form action="{{ url_for('search') }}" method="post">
+        <select name="system" class="form-sel">
+            <option value="WINDOWS">Windows</option>
+            <option value="MAC">Mac OS</option>
+        </select>
+        <select name="currency" class="form-sel">
+            <option value="ARS">ARS</option>
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+            <option value="AUD">AUD</option>
+        </select>
+        <input type="text" name="query" placeholder="Ingresa tu búsqueda">
+        <button type="submit" class="form-sel">Buscar</button>
+    </form>
+    <ul>
+    <p>{{ items }}</p>
+    {% for item in data %}
+        <a href='{{ item["url"] }}' target="_blank"><div class='item result 
+        {% if "xbox" in item["platform"].lower() %}
+            xbox
+        {% elif "windows" in item["platform"].lower() %}
+            windows
+        {% elif "steam" in item["platform"].lower() %}
+            steam
+        {% elif "mstore" in item["platform"].lower() %}
+            mstore
+        {% elif "epic" in item["platform"].lower() %}
+            epic
+        {% endif %}'>
+            {% if 'xbox' in item["platform"].lower() %}
+                <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fxbox-hd-png-accepted-artwork-1024.png&f=1&nofb=1&ipt=6982e6308424d4c56349ace4034996959a4a97cf3a2ad0a37c720fd6038ba130&ipo=images">
+            {% elif 'pc' in item["platform"].lower() %}
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebstockreview.net%2Fimages%2Fpng-to-icon-windows-10.png&f=1&nofb=1&ipt=59163fc35a279c5987d80fef6be980f1ace6c141259ff8b8edc9e0ca412f3bd7&ipo=images">
+            {% elif 'steam' in item["platform"].lower() %}
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.thepaperlab.it%2Fwp-content%2Fuploads%2Fsites%2F4%2F2019%2F10%2F1200px-steam_icon_logo.svg_.png&f=1&nofb=1&ipt=466ed630347f1d10f84275262279098bb29ff07152b9b43b040d1f9447db9b73&ipo=images">
+            {% elif 'epic' in item["platform"].lower() %}
+                <img src="https://www.vhv.rs/dpng/d/610-6101267_epic-games-logo-png-transparent-png.png">
+            {% else %}
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebstockreview.net%2Fimages%2Fpng-to-icon-windows-10.png&f=1&nofb=1&ipt=59163fc35a279c5987d80fef6be980f1ace6c141259ff8b8edc9e0ca412f3bd7&ipo=images">
+            {% endif %}
+            <p id="name"> {{ item["name"] }}</p>
+            <p id="price"> $ {{ item["price"] }}</p>
+        </div></a>
+    {% endfor %}
+    </ul>
+</body>
+</html>
