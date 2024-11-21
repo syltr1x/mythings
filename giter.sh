@@ -82,10 +82,15 @@ giter() {
 		if [ $gitCount -gt 0 ]; then
 			git -C $repo $gitComm
 		fi
-		commitId=$(git -C $repo log --oneline | head -n1 | awk ' { print $1 } ')
-		commitDesc=$(git -C $repo log --oneline | head -n1 | cut -d\  -f2- )
-		echo -e "($commitId) '$commitDesc'"
-		echo ""
+		branch=$(git -C $repo symbolic-ref --short HEAD)
+		commitId=$(git -C $repo log --oneline -1 origin/$branch | awk ' { print $1 } ')
+		commitDesc=$(git -C $repo log --oneline -1 origin/$branch | cut -d\  -f2- )
+		echo -e "${green}Remote HEAD: ${end}${yellow}($commitId)${end} '$commitDesc'"
+		commitId=$(git -C $repo log --oneline origin/$branch..HEAD | awk ' { print $1 } ')
+		commitDesc=$(git -C $repo log --oneline origin/$branch..HEAD | cut -d\  -f2- )
+		if [[ ! -z $commitId ]]; then
+			echo -e "${red}Local HEAD: ${end}${yellow}($commitId)${end} '$commitDesc'"
+		fi
 	done
 }
 
